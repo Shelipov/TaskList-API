@@ -26,17 +26,18 @@ namespace TaskList_API.Test.Utilites
                 .Build();
 
             _options = new DbContextOptionsBuilder<TaskListContext>()
-                .UseSqlServer(builder.GetConnectionString("DefaultConnection"))
+                .UseNpgsql(builder.GetConnectionString("DefaultConnection"))
                 .Options;
 
             _server = new TestServer(new WebHostBuilder()
                 .UseEnvironment("Test")
                 .UseConfiguration(builder)
-                .UseStartup<Program>());
+                .UseStartup<Startup>());
 
             _client = _server.CreateClient();
 
             _context = new TaskListContext(_options);
+            _context.Database.EnsureDeleted();
             _client.BaseAddress = _server.BaseAddress;
             _context.Database.Migrate();
             TaskListSetup.InitializeDbForTests(_context);

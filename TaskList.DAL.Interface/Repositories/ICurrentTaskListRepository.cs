@@ -10,6 +10,8 @@ namespace TaskList.DAL.Interface.Repositories
 {
     public interface ICurrentTaskListRepository : IRepository<CurrentTaskList>
     {
-        IQueryable<CurrentTaskList> Search(SearchTaskListDto dto);
+        IQueryable<CurrentTaskList> Search(SearchCurrentTaskListDto dto);
+        Task<List<CurrentTaskList>> GetAggregateById(Guid currentTasklistId);
+        Task<CurrentTaskList> GetAggregateById(Guid currentTasklistId, Guid userId);
     }
 }

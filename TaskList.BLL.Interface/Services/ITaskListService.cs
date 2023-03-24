@@ -11,6 +11,11 @@ namespace TaskList.BLL.Interface.Services
 {
     public interface ITaskListService
     {
-        Task<Result<PagedResponse<TaskListResponse>>> Search(SearchTaskListDto dto);
+        Task<Result<PagedResponse<TaskListResponse>>> Search(SearchCurrentTaskListDto dto);
+        Task<Result<Guid>> Create(CreateCurrentTaskListDto dto);
+        Task<Result<CurrentTaskListDto>> GetById(Guid currentTasklistId, Guid userId);
+        Task<Result<Guid>> Update(CurrentTaskListDto dto);
+        Task<Result<Guid>> DeleteById(Guid currentTasklistId, Guid userId);
+        Task<Result<CurrentTaskListWithUsersDto>> GetWithUsersById(Guid currentTasklistId);
     }
 }

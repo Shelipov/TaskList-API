@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskList-API\TaskList-API.csproj" />
     <ProjectReference Include="..\TaskList.DAL.DataBase\TaskList.DAL.DataBase.csproj" />
     <ProjectReference Include="..\TaskList.DAL.Interface\TaskList.DAL.Interface.csproj" />
   </ItemGroup>

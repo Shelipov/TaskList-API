@@ -15,7 +15,8 @@ namespace TaskList.DAL.Interface.Models
         public DateTime? UpdatedDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid UserCurrentTaskListId { get; set; }
-        public virtual UserCurrentTaskList UserCurrentTaskList { get; set; }
+        public Guid? OwnerId { get; set; }
+        public virtual ICollection<UserCurrentTaskList> UserCurrentTaskLists { get; set; }
         public virtual ICollection<CurrentTask> CurrentTasks { get; set; } 
     }
 }

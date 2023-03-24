@@ -19,31 +19,48 @@ namespace TaskList.DAL.DataBase.Repositories
         {
         }
 
-        public IQueryable<CurrentTaskList> Search(SearchTaskListDto dto)
+        public IQueryable<CurrentTaskList> Search(SearchCurrentTaskListDto dto)
         {
             var currentTaskList = dbSet
-                .Include(x => x.UserCurrentTaskList)
+                .Include(x => x.UserCurrentTaskLists)
                 .ThenInclude(x => x.User)
                 .Include(x => x.CurrentTasks)
-                .Where(x => x.CurrentTasks.Select(x => x.IsCompleted).Distinct().Contains(false));
+                .Where(x => x.UserCurrentTaskLists.Select(x => x.UserId).Contains(dto.UserId.Value));
 
             if (!string.IsNullOrWhiteSpace(dto.Search))
             {
-                currentTaskList = currentTaskList.Where(x => dto.Search.ToLower().Contains(x.CurrentTaskListName.ToLower())
-                  || dto.Search.ToLower().Contains(x.UserCurrentTaskList.User.FirstName.ToLower())
-                  || dto.Search.ToLower().Contains(x.UserCurrentTaskList.User.LastName.ToLower()));
+                currentTaskList = currentTaskList.Where(x => dto.Search.ToLower().Contains(x.CurrentTaskListName.ToLower()));
             }
 
             currentTaskList = dto.OrderField switch
             {
                 SearchTaskListOrder.CurrentTaskListName => currentTaskList.OrderField(x => x.CurrentTaskListName, dto.OrderBy),
                 SearchTaskListOrder.CreatedDate => currentTaskList.OrderField(x => x.CreatedDate, dto.OrderBy),
-                SearchTaskListOrder.UserFirstName => currentTaskList.OrderField(x => x.UserCurrentTaskList.User.FirstName, dto.OrderBy),
-                SearchTaskListOrder.UserLastName => currentTaskList.OrderField(x => x.UserCurrentTaskList.User.LastName, dto.OrderBy),
                 _ => throw new NotImplementedException()
             };
 
             return currentTaskList;
+        }
+
+        public async Task<List<CurrentTaskList>> GetAggregateById(Guid currentTasklistId)
+        {
+            return await  dbSet
+                .Include(x => x.UserCurrentTaskLists)
+                .ThenInclude(x => x.User)
+                .Include(x => x.CurrentTasks)
+                .Where(x => x.CurrentTaskListId == currentTasklistId).ToListAsync();
+        }
+        public async Task<CurrentTaskList> GetAggregateById(Guid currentTasklistId,Guid userId)
+        {
+            return await dbSet
+                .Include(x => x.UserCurrentTaskLists)
+                .ThenInclude(x => x.User)
+                .Include(x => x.CurrentTasks)
+                .Where(x => x.CurrentTaskListId == currentTasklistId && x.UserCurrentTaskLists.Select(x => x.UserId).Contains(userId)).FirstOrDefaultAsync();
+        }
+        public async Task<CurrentTaskList> GetByOwnerId(Guid userId)
+        {
+            return await dbSet.FirstOrDefaultAsync(x => x.OwnerId == userId);
         }
     }
 }

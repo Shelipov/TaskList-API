@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TaskList.DAL.DataBase.Context;
 
 #nullable disable
@@ -18,33 +18,48 @@ namespace TaskList.DAL.DataBase.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("CurrentTaskListUserCurrentTaskList", b =>
+                {
+                    b.Property<Guid>("CurrentTaskListsCurrentTaskListId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserCurrentTaskListsUserCurrentTaskListId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CurrentTaskListsCurrentTaskListId", "UserCurrentTaskListsUserCurrentTaskListId");
+
+                    b.HasIndex("UserCurrentTaskListsUserCurrentTaskListId");
+
+                    b.ToTable("CurrentTaskListUserCurrentTaskList");
+                });
 
             modelBuilder.Entity("TaskList.DAL.Interface.Models.CurrentTask", b =>
                 {
                     b.Property<Guid>("CurrentTaskId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CurrentTaskListId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CurrentTaskName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsCompleted")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("CurrentTaskId");
 
@@ -57,24 +72,25 @@ namespace TaskList.DAL.DataBase.Migrations
                 {
                     b.Property<Guid>("CurrentTaskListId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CurrentTaskListName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserCurrentTaskListId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("CurrentTaskListId");
-
-                    b.HasIndex("UserCurrentTaskListId");
 
                     b.ToTable("CurrentTaskLists");
                 });
@@ -83,21 +99,21 @@ namespace TaskList.DAL.DataBase.Migrations
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("UserId");
 
@@ -108,22 +124,37 @@ namespace TaskList.DAL.DataBase.Migrations
                 {
                     b.Property<Guid>("UserCurrentTaskListId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserCurrentTaskListId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("UserCurrentTaskLists");
+                });
+
+            modelBuilder.Entity("CurrentTaskListUserCurrentTaskList", b =>
+                {
+                    b.HasOne("TaskList.DAL.Interface.Models.CurrentTaskList", null)
+                        .WithMany()
+                        .HasForeignKey("CurrentTaskListsCurrentTaskListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TaskList.DAL.Interface.Models.UserCurrentTaskList", null)
+                        .WithMany()
+                        .HasForeignKey("UserCurrentTaskListsUserCurrentTaskListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TaskList.DAL.Interface.Models.CurrentTask", b =>
@@ -135,17 +166,6 @@ namespace TaskList.DAL.DataBase.Migrations
                         .IsRequired();
 
                     b.Navigation("CurrentTaskList");
-                });
-
-            modelBuilder.Entity("TaskList.DAL.Interface.Models.CurrentTaskList", b =>
-                {
-                    b.HasOne("TaskList.DAL.Interface.Models.UserCurrentTaskList", "UserCurrentTaskList")
-                        .WithMany("CurrentTaskLists")
-                        .HasForeignKey("UserCurrentTaskListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCurrentTaskList");
                 });
 
             modelBuilder.Entity("TaskList.DAL.Interface.Models.UserCurrentTaskList", b =>
@@ -167,11 +187,6 @@ namespace TaskList.DAL.DataBase.Migrations
             modelBuilder.Entity("TaskList.DAL.Interface.Models.User", b =>
                 {
                     b.Navigation("UserCurrentTaskList");
-                });
-
-            modelBuilder.Entity("TaskList.DAL.Interface.Models.UserCurrentTaskList", b =>
-                {
-                    b.Navigation("CurrentTaskLists");
                 });
 #pragma warning restore 612, 618
         }

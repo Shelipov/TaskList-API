@@ -1,4 +1,5 @@
 ﻿using System;
+using TaskList.BLL.Interface.Enums;
 using TaskList.DAL.Interface.Models;
 
 namespace TaskList_API.Test.Consts
@@ -114,7 +115,7 @@ namespace TaskList_API.Test.Consts
                 CurrentTaskListId = new Guid("a2186eeb-c91a-4f2b-a3ec-6bc85ad10c97"),
                 CurrentTaskName = "CurrentTaskName",
                 Description = "Description",
-                IsCompleted = false,
+                IsCompleted = CurrentTaskStatus.Pending,
             },
             new CurrentTask
             {
@@ -123,7 +124,7 @@ namespace TaskList_API.Test.Consts
                 CurrentTaskListId = new Guid("a2186eeb-c91a-4f2b-a3ec-6bc85ad10c97"),
                 CurrentTaskName = "CurrentTaskName",
                 Description = "Description",
-                IsCompleted = false,
+                IsCompleted = CurrentTaskStatus.Pending,
             },
             new CurrentTask
             {
@@ -132,7 +133,7 @@ namespace TaskList_API.Test.Consts
                 CurrentTaskListId = new Guid("a2186eeb-c91a-4f2b-a3ec-6bc85ad10c97"),
                 CurrentTaskName = "CurrentTaskName",
                 Description = "Description",
-                IsCompleted = false,
+                IsCompleted = CurrentTaskStatus.Pending,
             }
         };
        

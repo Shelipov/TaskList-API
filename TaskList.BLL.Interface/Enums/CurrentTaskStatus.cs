@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TaskList.BLL.Interface.Enums
 {
-    public enum SearchTaskListOrder
+    public enum CurrentTaskStatus
     {
-        CurrentTaskListName,
-        CreatedDate
+        Pending,
+        Active,
+        Complete
     }
 }

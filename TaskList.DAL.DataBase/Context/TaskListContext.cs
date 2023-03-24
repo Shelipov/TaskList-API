@@ -20,7 +20,7 @@ namespace TaskList.DAL.DataBase.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
         }
     }
 }
