@@ -25,6 +25,7 @@
     <ProjectReference Include="..\TaskList.BLL.Interface\TaskList.BLL.Interface.csproj" />
     <ProjectReference Include="..\TaskList.BLL.Services\TaskList.BLL.Services.csproj" />
     <ProjectReference Include="..\TaskList.DAL.DataBase\TaskList.DAL.DataBase.csproj" />
+    <ProjectReference Include="..\TaskList.Sheduler\TaskList.Sheduler.csproj" />
   </ItemGroup>
 
 </Project>

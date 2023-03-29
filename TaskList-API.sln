@@ -7,21 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList-API", "TaskList-AP
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{14B4CC04-C235-4350-B08C-BF2F62EA890A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.DAL.Domain", "TaskList.DAL.Domain\TaskList.DAL.Domain.csproj", "{A44BBD19-76D0-4ADC-99CC-2E5117BB0947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.DAL.Domain", "TaskList.DAL.Domain\TaskList.DAL.Domain.csproj", "{A44BBD19-76D0-4ADC-99CC-2E5117BB0947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.DAL.Interface", "TaskList.DAL.Interface\TaskList.DAL.Interface.csproj", "{86F5B92D-F734-445D-85A0-090691CC8C46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.DAL.Interface", "TaskList.DAL.Interface\TaskList.DAL.Interface.csproj", "{86F5B92D-F734-445D-85A0-090691CC8C46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.DAL.DataBase", "TaskList.DAL.DataBase\TaskList.DAL.DataBase.csproj", "{548B4ED6-3059-406E-83A7-44309A8A0D70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.DAL.DataBase", "TaskList.DAL.DataBase\TaskList.DAL.DataBase.csproj", "{548B4ED6-3059-406E-83A7-44309A8A0D70}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{B98A1949-A22E-4A4A-AE2E-FCF31493EA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.BLL.Interface", "TaskList.BLL.Interface\TaskList.BLL.Interface.csproj", "{F0FB9163-B7ED-43D0-9543-027336E72184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.BLL.Interface", "TaskList.BLL.Interface\TaskList.BLL.Interface.csproj", "{F0FB9163-B7ED-43D0-9543-027336E72184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.BLL.Services", "TaskList.BLL.Services\TaskList.BLL.Services.csproj", "{95F94AE6-0362-47A7-9D6D-15055D089B5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.BLL.Services", "TaskList.BLL.Services\TaskList.BLL.Services.csproj", "{95F94AE6-0362-47A7-9D6D-15055D089B5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8ACA3096-1780-48B9-B429-35B6301D738B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList-API.Test", "TaskList-API.Test\TaskList-API.Test.csproj", "{08D1F69B-E4A7-4D5F-B3A4-BB95A34C9FC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList-API.Test", "TaskList-API.Test\TaskList-API.Test.csproj", "{08D1F69B-E4A7-4D5F-B3A4-BB95A34C9FC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.Sheduler", "TaskList.Sheduler\TaskList.Sheduler.csproj", "{5AD4E5D2-3807-4DF9-A793-05B81D302CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{08D1F69B-E4A7-4D5F-B3A4-BB95A34C9FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08D1F69B-E4A7-4D5F-B3A4-BB95A34C9FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08D1F69B-E4A7-4D5F-B3A4-BB95A34C9FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD4E5D2-3807-4DF9-A793-05B81D302CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD4E5D2-3807-4DF9-A793-05B81D302CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD4E5D2-3807-4DF9-A793-05B81D302CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD4E5D2-3807-4DF9-A793-05B81D302CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

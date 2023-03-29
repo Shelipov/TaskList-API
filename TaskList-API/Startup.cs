@@ -10,6 +10,9 @@ using TaskList.BLL.Services;
 using TaskList.DAL.DataBase.Context;
 using TaskList.DAL.DataBase.Repositories;
 using TaskList.DAL.Interface.Repositories;
+using TaskList.Sheduler;
+using TaskList.Sheduler.Intefaces;
+using TaskList.Sheduler.Services;
 
 namespace TaskList_API
 {
@@ -36,10 +39,12 @@ namespace TaskList_API
             services.AddScoped<IUserCurrentTaskListRepository, UserCurrentTaskListRepository>();
             services.AddScoped<ITaskListService, TaskListService>(); 
             services.AddScoped<IUserTaskListService, UserTaskListService>();
+            services.AddScoped<ITaskListShedulerService, TaskListShedulerService>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
+            services.AddHostedService<TaskListBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
